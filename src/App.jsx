@@ -1,23 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function useReloj() {
-  const [hora, setHora] = useState(() => new Date());
-
-  useEffect(() => {
-    const timer = setInterval(() => setHora(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const horas = hora.getHours();
-  const minutos = hora.getMinutes().toString().padStart(2, '0');
-  const esPM = horas >= 12;
-  const horas12 = horas % 12 || 12;
-
-  return { texto: `${horas12}:${minutos}`, periodo: esPM ? 'PM' : 'AM' };
-}
-
 export default function App() {
-  const reloj = useReloj();
   const [activeTab, setActiveTab] = useState('inicio');
 
   const [isEmergencyActive, setIsEmergencyActive] = useState(false);
@@ -101,32 +84,9 @@ export default function App() {
         role="application"
         aria-label="Cuida Fácil — aplicación de ayuda para Don Pedro"
       >
-        <div className="bg-emerald-700 text-white px-6 py-2 flex justify-between items-center text-xs font-semibold shrink-0 z-20">
-          <div className="flex items-center space-x-1" aria-live="polite">
-            <span>{reloj.texto}</span>
-            <span className="text-[10px]">{reloj.periodo}</span>
-          </div>
-          <div className="flex items-center space-x-2" aria-hidden="true">
-            <div className="flex items-end space-x-0.5 h-3">
-              <div className="w-0.5 h-1 bg-white" />
-              <div className="w-0.5 h-1.5 bg-white" />
-              <div className="w-0.5 h-2 bg-white" />
-              <div className="w-0.5 h-2.5 bg-white" />
-            </div>
-            <span className="text-[10px] tracking-widest font-bold">5G</span>
-            <div className="flex items-center">
-              <div className="w-5 h-2.5 border border-white rounded-sm p-0.5 flex items-center">
-                <div className="h-full w-full bg-white rounded-xs" />
-              </div>
-              <div className="w-0.5 h-1 bg-white rounded-r-xs" />
-              <span className="ml-1 text-[9px]">100%</span>
-            </div>
-          </div>
-        </div>
-
         {notification && (
           <div
-            className="absolute top-14 left-4 right-4 bg-yellow-400 border-2 border-yellow-600 text-slate-900 p-4 rounded-2xl shadow-xl flex items-center justify-between z-50 animate-bounce"
+            className="absolute top-4 left-4 right-4 bg-yellow-400 border-2 border-yellow-600 text-slate-900 p-4 rounded-2xl shadow-xl flex items-center justify-between z-50 animate-bounce"
             role="alert"
             aria-live="assertive"
           >
